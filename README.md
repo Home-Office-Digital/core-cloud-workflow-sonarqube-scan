@@ -4,7 +4,7 @@
 This repository contains reusable Github Actions workflow files for using Sonarqube scanner. Once the scan is complete, the workflow will push the results to our Sonarqube instance for analysis and, if executed via PR instead of on every commit push, will auto-comment the results on your respective PR.
 
 The reusable workflow file exists here. This is for informational purposes only.
-[sonarqube-scan.yaml](https://github.com/UKHomeOffice/core-cloud-workflow-sonarqube-scan/blob/main/.github/workflows/sonarqube-scan.yaml)
+[sonarqube-scan.yaml](https://github.com/Home-Office-Digital/core-cloud-workflow-sonarqube-scan/blob/main/.github/workflows/sonarqube-scan.yaml)
 
 ## Implementation
 
@@ -49,7 +49,7 @@ Add the following config into the following directory in your repository `.githu
     
     jobs:
       sonarqube-scanner:
-        uses: UKHomeOffice/core-cloud-workflow-sonarqube-scan/.github/workflows/sonarqube-scan.yaml@1.0.0
+        uses: Home-Office-Digital/core-cloud-workflow-sonarqube-scan/.github/workflows/sonarqube-scan.yaml@1.0.0
         secrets:
           sonar_token: ${{ secrets.sonar_token }}
           sonar_host_url: ${{ secrets.sonar_host_url }}
@@ -57,7 +57,7 @@ Add the following config into the following directory in your repository `.githu
 # Notes
 - If you wish to add your own `sonar-project.properties` file for further customisation of your Sonarqube project, this is supported by the workflow. Please add this to your repo's root directory. If you wish to use your own projectKey and name instead of the repo name, you can change this here. An example of this config would be
 ```
-     sonar.projectKey=UKHomeOffice:james-test-sonarqube-name-override
+     sonar.projectKey=Home-Office-Digital:james-test-sonarqube-name-override
      sonar.projectName=James Test Sonarqube Name Override
      sonar.projectVersion=1.0.0
      sonar.sources=.
