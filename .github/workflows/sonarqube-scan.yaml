@@ -63,3 +63,10 @@ jobs:
             -Dsonar.sarif.path=sonar-report.sarif
             -Dsonar.terraform.provider.aws.version=5.0
             -Dsonar.scm.provider=git
+
+      - name: Upload SARIF file
+        if: ${{ success() || failure() }}
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'sonar-report.sarif'
+          category: 'sonarqube'
