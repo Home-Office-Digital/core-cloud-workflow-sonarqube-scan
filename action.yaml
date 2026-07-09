@@ -3,6 +3,11 @@ name: Sonarqube Reusable Scanner
 inputs:
   account_id:
     required: false
+  runner:
+    description: 'For use with a specific runner'
+    type: string
+    required: false
+    default: 'ubuntu-latest'
   sonar_token:
     required: true
   sonar_host_url:
