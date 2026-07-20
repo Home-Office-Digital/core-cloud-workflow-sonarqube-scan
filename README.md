@@ -2,7 +2,10 @@
 
 ## Overview
 
-This repository contains reusable Github Actions workflow files for using Sonarqube scanner. Once the scan is complete, the workflow will push the results to our Sonarqube instance for analysis and, if executed via PR instead of on every commit push, will auto-comment the results on your respective PR.
+This repository contains reusable GitHub Actions workflow files for using
+SonarQube scanner. Once the scan is complete, the workflow will push the
+results to our SonarQube instance for analysis and, if executed via PR instead
+of on every commit push, will auto-comment the results on your respective PR.
 
 The reusable workflow file exists here. This is for informational purposes only.
 [sonarqube-scan.yaml](https://github.com/Home-Office-Digital/core-cloud-workflow-sonarqube-scan/blob/main/.github/workflows/sonarqube-scan.yaml)
@@ -11,69 +14,83 @@ The reusable workflow file exists here. This is for informational purposes only.
 
 ### Tokens
 
-In Sonarqube, each project will have a project admin account associated with it. This is where the Sonar Scanner token will be created. Ask your project admin to generate a User Token on your tenant admin account.
+In SonarQube, each project will have a project admin account associated with
+it. This is where the Sonar Scanner token will be created. Ask your project
+admin to generate a User Token on your tenant admin account.
 
 Project admin steps:
 
-- Login to Sonarqube.
+- Login to SonarQube.
 - Click your user in the top right of the screen, then click "My Account".
-- On the Security tab, create a name, select token type as "User Token", and set "No Expiration".
-- Go to the Github repo and add the token in Settings -> Secrets and Variables -> Actions -> New Repository Secret.
+- On the Security tab, create a name, select token type as "User Token", and
+set "No Expiration".
+- Go to the Github repo and add the token in
+  - **Settings -> Secrets and Variables -> Actions -> New Repository Secret**
 
 Secret names to use:
 
 - `SONAR_TOKEN` (Contains the token you just created)
-- `SONAR_HOST_URL` (contains the Sonarqube host e.g. https://sonarqube.example.com)
+- `SONAR_HOST_URL` (contains the SonarQube host e.g. <https://sonarqube.example.com>)
 
-- Repeat these steps in **Settings -> Secrets and Variables -> Dependabot -> New Repository Secret**
+- Repeat these steps in **Settings -> Secrets and Variables -> Dependabot ->
+New Repository Secret**
   
-  > [!NOTE]
-  > If you are unable to see the Dependabot secret submenu, please reach out to Team Sauron
+> [!NOTE]
+> If you are unable to see the Dependabot secret submenu, please reach out to
+> Team Sauron
 
-Add the following config into the following directory in your repository `.github/workflow/sonarqube-scan.yaml`, or build into your own workflow logic if more complex:
+Add the following config into the following directory in your repository
+`.github/workflow/sonarqube-scan.yaml`, or build into your own workflow logic
+if more complex:
 
 ```yaml
-    name: Sonarqube Scanner
-    
-    on:
-      workflow_call:
-        secrets:
-          sonar_token:
-            required: true
-          sonar_host_url:
-            required: true
-      push:
-        branches:
-          - main
-      pull_request:
-        branches:
-          - main
-    
-    permissions:
-      contents: read
-      id-token: write
-      actions: read
-      security-events: write
-    
-    jobs:
-      sonarqube-scanner:
-        uses: Home-Office-Digital/core-cloud-workflow-sonarqube-scan/.github/workflows/sonarqube-scan.yaml@1.0.0
-        secrets:
-          sonar_token: ${{ secrets.sonar_token }}
-          sonar_host_url: ${{ secrets.sonar_host_url }}
+name: Sonarqube Scanner
+
+on:
+  workflow_call:
+    secrets:
+      sonar_token:
+        required: true
+      sonar_host_url:
+        required: true
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+  actions: read
+  security-events: write
+
+jobs:
+  sonarqube-scanner:
+    uses: Home-Office-Digital/core-cloud-workflow-sonarqube-scan/.github/workflows/sonarqube-scan.yaml@1.0.0
+    secrets:
+      sonar_token: ${{ secrets.sonar_token }}
+      sonar_host_url: ${{ secrets.sonar_host_url }}
 ```
 
 ## Notes
 
-If you wish to add your own `sonar-project.properties` file for further customisation of your Sonarqube project, this is supported by the workflow. Please add this to your repo's root directory. If you wish to use your own projectKey and name instead of the repo name, you can change this here. An example of this config would be
+If you wish to add your own `sonar-project.properties` file for further
+customisation of your SonarQube project, this is supported by the workflow.
+Please add this to your repo's root directory. If you wish to use your own
+projectKey and name instead of the repo name, you can change this here. An
+example of this config would be
 
 ```properties
 sonar.projectKey=Home-Office-Digital:james-test-sonarqube-name-override
-sonar.projectName=James Test Sonarqube Name Override
+sonar.projectName=James Test SonarQube Name Override
 sonar.projectVersion=1.0.0
 sonar.sources=.
 sonar.qualitygate.wait=false
 sonar.issues.fail=false
 ```
 
-Github - When adding the Sonar feature to an existing repo, it would be best to push the Sonar feature on its own to your primary branch. This will highlight any existing code quality issues your primary branch currently has.
+GitHub - When adding the Sonar feature to an existing repo, it would be best to
+push the Sonar feature on its own to your primary branch. This will highlight
+any existing code quality issues your primary branch currently has.
