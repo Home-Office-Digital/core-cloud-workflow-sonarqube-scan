@@ -40,7 +40,7 @@ runs:
         echo "sonar-args=$EXTRA_ARGS" >> "$GITHUB_OUTPUT"
 
     - id: sonar-scan
-      uses: sonarsource/sonarqube-scan-action@v6
+      uses: sonarsource/sonarqube-scan-action@v8
       env:
         SONAR_TOKEN: ${{ inputs.sonar_token }}
         SONAR_HOST_URL: ${{ inputs.sonar_host_url }}
