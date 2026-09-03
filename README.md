@@ -25,6 +25,7 @@ SONAR_HOST_URL (contains the Sonarqube host e.g. https://sonarqube.example.com)
   NOTE: If you are unable to see the Dependabot secret submenu, please reach out to Team Sauron
 Add the following config into the following directory in your repository `.github/workflow/sonarqube-scan.yaml`, or build into your own workflow logic if more complex.
 
+```yaml
     name: Sonarqube Scanner
     
     on:
@@ -54,9 +55,10 @@ Add the following config into the following directory in your repository `.githu
           sonar_token: ${{ secrets.sonar_token }}
           sonar_host_url: ${{ secrets.sonar_host_url }}
 
-# Notes
-- If you wish to add your own `sonar-project.properties` file for further customisation of your Sonarqube project, this is supported by the workflow. Please add this to your repo's root directory. If you wish to use your own projectKey and name instead of the repo name, you can change this here. An example of this config would be
 ```
+## Notes
+- If you wish to add your own `sonar-project.properties` file for further customisation of your Sonarqube project, this is supported by the workflow. Please add this to your repo's root directory. If you wish to use your own projectKey and name instead of the repo name, you can change this here. An example of this config would be
+```ini
      sonar.projectKey=Home-Office-Digital:james-test-sonarqube-name-override
      sonar.projectName=James Test Sonarqube Name Override
      sonar.projectVersion=1.0.0
