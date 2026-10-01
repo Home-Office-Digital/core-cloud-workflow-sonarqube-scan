@@ -48,6 +48,19 @@ jobs:
           fi
           echo "sonar-args=$EXTRA_ARGS" >> "$GITHUB_OUTPUT"
 
+      - name: Debug Sonar connectivity
+        env:
+          SONAR_HOST_URL: ${{ secrets.sonar_host_url }}
+        run: |
+          echo "=== Proxy env ==="
+          env | grep -i proxy || echo "no proxy vars set"
+          echo "=== DNS ==="
+          HOST=$(echo "$SONAR_HOST_URL" | sed -E 's#https?://##; s#[:/].*##')
+          echo "resolving: $HOST"
+          getent hosts "$HOST" || echo "DNS FAILED"
+          echo "=== direct connect ==="
+          curl -sv --max-time 10 "$SONAR_HOST_URL/api/v2/analysis/version" || true
+
       - id: sonar-scan
         uses: sonarsource/sonarqube-scan-action@v7
         env:
