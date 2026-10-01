@@ -32,7 +32,7 @@ jobs:
     with:
       runner: ${{ inputs.runner || 'ubuntu-latest' }}
   sonarqube-scanner:
-    uses: Home-Office-Digital/core-cloud-workflow-sonarqube-scan/.github/workflows/sonarqube-scan.yaml@1.1.8
+    uses: Home-Office-Digital/core-cloud-workflow-sonarqube-scan/.github/workflows/sonarqube-scan.yaml@feature/node-20-deprecation # 1.1.8
     with:
       runner: ${{ inputs.runner || 'ubuntu-latest' }}
     secrets:
