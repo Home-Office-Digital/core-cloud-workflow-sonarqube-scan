@@ -28,7 +28,7 @@ jobs:
     runs-on: ${{ inputs.runner }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           fetch-depth: 0
 
@@ -62,7 +62,7 @@ jobs:
           curl -sv --max-time 10 "$SONAR_HOST_URL/api/v2/analysis/version" || true
 
       - id: sonar-scan
-        uses: sonarsource/sonarqube-scan-action@v7
+        uses: sonarsource/sonarqube-scan-action@c7ee0f9df90b7aa20e8dcf9695dcfe2e7da5b4f2 # v7
         env:
           SONAR_TOKEN: ${{ secrets.sonar_token }}
           SONAR_HOST_URL: ${{ secrets.sonar_host_url }}
