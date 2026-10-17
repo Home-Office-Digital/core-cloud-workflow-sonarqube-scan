@@ -25,6 +25,8 @@ permissions:
 
 jobs:
   sonarqube-scanner:
+    # dependabot runs don't have access to the sonarqube secret
+    if: github.actor != 'dependabot[bot]'
     runs-on: ${{ inputs.runner }}
     steps:
       - name: Checkout code
